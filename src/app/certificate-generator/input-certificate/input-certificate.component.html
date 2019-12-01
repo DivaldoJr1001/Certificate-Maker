@@ -1,0 +1,27 @@
+<div
+  fxFlexFill
+  class="outer-container"
+  fxLayout="column"
+  fxLayoutAlign="center center"
+>
+  <div class="inner-container" fxLayoutAlign="start center" fxLayout="column">
+    <div fxLayoutAlign="center end" [ngStyle]="{ height: '52%' }">
+      <form>
+        <input
+          required
+          [(ngModel)]="email"
+          (ngModelChange)="email = $event"
+          name="email"
+          placeholder="Email"
+        />
+        <button type="submit" (click)="fetchData()">Ok</button>
+      </form>
+    </div>
+    <div *ngIf="emptyError" class="warning-text">
+      * O campo não deve estar vazio!
+    </div>
+    <div *ngIf="notFoundError" class="warning-text">
+      * O email não foi reconhecido!
+    </div>
+  </div>
+</div>

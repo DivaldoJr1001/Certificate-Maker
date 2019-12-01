@@ -1,0 +1,36 @@
+.pdf-image {
+  border: solid;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  .background {
+    position: absolute;
+    z-index: 0;
+  }
+
+  .foreground {
+    position: absolute;
+    z-index: 1;
+    border: solid;
+    width: 400px;
+    height: 200px;
+    margin-top: 300px;
+    margin-left: 200px;
+  }
+
+  .pdf-coverer {
+    position: absolute;
+    z-index: 2;
+  }
+
+}
+
+.buttons {
+  margin-top: 1%;
+}
+
+.space-right {
+  margin-right: 1%;
+}
