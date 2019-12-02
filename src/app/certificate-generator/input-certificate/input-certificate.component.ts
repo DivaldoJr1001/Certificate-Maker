@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DatasheetService } from 'src/app/services/datasheet.service';
 
 @Component({
   selector: 'app-input-certificate',
@@ -8,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 export class InputCertificateComponent implements OnInit {
 
   email: string;
+  code: string;
 
   emptyError: boolean;
   notFoundError: boolean;
+
+  constructor(private dataCheck: DatasheetService) { }
 
   ngOnInit() {
     this.emptyError = false;
@@ -26,8 +30,15 @@ export class InputCertificateComponent implements OnInit {
       this.emptyError = true;
     }
 
+    this.code = this.dataCheck.findCode(this.email);
+
+    if (this.code === null && !this.emptyError) {
+      this.notFoundError = true;
+    }
+
+
     if (!this.emptyError && !this.notFoundError) {
-      window.localStorage.setItem('email', this.email);
+      window.localStorage.setItem('code', this.code);
       window.open('/certificado', '_blank');
     }
 

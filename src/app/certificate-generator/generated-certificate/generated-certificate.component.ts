@@ -1,6 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import * as jspdf from 'jspdf';
+import jspdf from 'jspdf';
 import html2canvas from 'html2canvas';
+import { DatasheetService } from 'src/app/services/datasheet.service';
+
+export interface PersonObject {
+  Numero: string;
+  Titulo: string;
+  Autores: string;
+  Emails: string;
+}
 
 @Component({
   selector: 'app-generated-certificate',
@@ -9,13 +17,19 @@ import html2canvas from 'html2canvas';
 })
 export class GeneratedCertificateComponent implements OnInit {
   code: string;
+  title: string;
+  authorsList: PersonObject[];
 
   // Tamanho do certificado em px
   certHeight = 600;
   certWidth = 800;
 
+  constructor(private dataCheck: DatasheetService) { }
+
   ngOnInit() {
-    this.code = window.localStorage.getItem('email');
+    this.code = window.localStorage.getItem('code');
+    this.authorsList = this.dataCheck.getPersonObject(this.code);
+    this.title = this.authorsList[0].Titulo;
   }
 
   getHeight() {

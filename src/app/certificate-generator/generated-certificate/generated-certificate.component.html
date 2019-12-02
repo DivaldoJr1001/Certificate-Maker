@@ -8,9 +8,18 @@
     <img class="background" src="./../../../assets/TestImage.png" />
 
     <div class="foreground">
-      O texto fica nesse container, definir tamanho no documento scss e mover como necessário com margin-top e margin-left utilizando valores em px.
-      <br><br>
-      Exemplo de display de variável: {{ code }}
+      * Informações:
+      <br>
+      Número: {{ code }}
+      <br>
+      Título: {{ authorsList[0].Titulo }}
+      <br>
+      Autores:
+      <br>
+      <div *ngFor="let author of authorsList">
+        - {{ author.Autores }}
+        <br>
+      </div>
     </div>
 
     <div class="pdf-coverer" [ngStyle]="{width: getWidth(), height: getHeight()}"></div>
