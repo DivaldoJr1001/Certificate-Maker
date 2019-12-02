@@ -3,18 +3,18 @@
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
 
 
-<div fxFlexFill class="outer-container" fxLayoutAlign="center center" fxLayout="column">
+<div *ngIf="!wrongAdressError" fxFlexFill class="outer-container" fxLayoutAlign="center center" fxLayout="column">
   <div class="pdf-image" id="contentToConvert" [ngStyle]="{width: getWidth(), height: getHeight()}">
     <img class="background" src="./../../../assets/TestImage.png" />
 
     <div class="foreground">
       * Informações:
       <br>
-      Número: {{ code }}
+      Número: {{ personObject.Numero }}
       <br>
-      Título: {{ author.Titulo }}
+      Título: {{ personObject.Titulo }}
       <br>
-      Nome: {{ author.Nome }}
+      Nome: {{ personObject.Nome }}
     </div>
 
     <div class="pdf-coverer" [ngStyle]="{width: getWidth(), height: getHeight()}"></div>
@@ -22,4 +22,8 @@
   <div class="buttons" fxLayout="row" fxLayoutAlign="center center" [ngStyle]="{width: certWidth}">
     <button (click)="getPDF()">Baixar como PDF</button>
   </div>
+</div>
+
+<div *ngIf="wrongAdressError">
+  Erro
 </div>

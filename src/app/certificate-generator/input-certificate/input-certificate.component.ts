@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DatasheetService } from 'src/app/services/datasheet.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-input-certificate',
@@ -14,7 +15,7 @@ export class InputCertificateComponent implements OnInit {
   emptyError: boolean;
   notFoundError: boolean;
 
-  constructor(private dataCheck: DatasheetService) { }
+  constructor(private dataCheck: DatasheetService, private _router: Router) { }
 
   ngOnInit() {
     this.emptyError = false;
@@ -26,20 +27,18 @@ export class InputCertificateComponent implements OnInit {
     this.emptyError = false;
     this.notFoundError = false;
 
+    this.dataCheck.setEmail(this.email);
+
     if (this.email === '') {
       this.emptyError = true;
     }
 
-    this.code = this.dataCheck.findCode(this.email);
-
-    if (this.code === null && !this.emptyError) {
-      this.notFoundError = true;
+    if (!this.emptyError) {
+      this.notFoundError = !this.dataCheck.doesItExist();
     }
 
-
     if (!this.emptyError && !this.notFoundError) {
-      window.localStorage.setItem('code', this.code);
-      window.open('/certificado', '_blank');
+      this._router.navigate(['/certificado']);
     }
 
   }

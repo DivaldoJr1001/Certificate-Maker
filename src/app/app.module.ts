@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './modules/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CertificateGeneratorModule } from './certificate-generator/certificate-generator.module';
+import { DatasheetService } from './services/datasheet.service';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,7 @@ import { CertificateGeneratorModule } from './certificate-generator/certificate-
     ReactiveFormsModule,
     CertificateGeneratorModule
   ],
-  providers: [],
+  providers: [DatasheetService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

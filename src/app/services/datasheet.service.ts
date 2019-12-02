@@ -12,6 +12,8 @@ export interface PersonObject {
   providedIn: 'root'
 })
 export class DatasheetService {
+  private email: string = null;
+  private personObject: PersonObject;
 
   data: PersonObject[] = DataJSON['Trabalhos Aceitos'];
   authorsList: PersonObject[] = [];
@@ -21,40 +23,36 @@ export class DatasheetService {
   currentCode: string = null;
   currentRepeat: number = null;
 
-  constructor() {
+  constructor() {}
+
+  setEmail(email: string) {
+    this.email = email;
   }
 
-  findCode(email: string): string {
-    this.currentRepeat = 0;
-    this.code = null;
-
-    for (const object of this.data) {
-      if (object.Numero === this.currentCode) {
-        this.currentRepeat++;
-      } else {
-        this.currentRepeat = 0;
-        this.currentCode = object.Numero;
-      }
-      if (object.Email.toLowerCase() === email.toLowerCase()) {
-        this.code = object.Numero;
-        this.repeatID = this.currentRepeat;
-      }
-    }
-    if (this.code === null) {
-      return null;
-    }
-    return this.code + this.repeatID;
+  getEmail(): string {
+    return this.email;
   }
 
-  getPersonObject(fullCode: string) {
-    const code = fullCode.substring(0, fullCode.length - 1);
-    const specificAuthor = parseInt(fullCode.substring(fullCode.length - 1, fullCode.length));
-
-    for (const object of this.data) {
-      if (object.Numero === code) {
-        this.authorsList.push(object);
+  doesItExist(): boolean {
+    let exists = false;
+    this.personObject = null;
+    if (this.email !== null && this.email !== undefined) {
+      for (const object of this.data) {
+        if (object.Email.toLowerCase() === this.email.toLowerCase()) {
+          exists = true;
+        }
       }
     }
-    return this.authorsList[specificAuthor];
+    return exists;
+  }
+
+  findPersonObject() {
+    this.personObject = null;
+    for (const object of this.data) {
+      if (object.Email === this.email) {
+        this.personObject = object;
+      }
+    }
+    return this.personObject;
   }
 }

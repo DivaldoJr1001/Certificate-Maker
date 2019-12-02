@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import jspdf from 'jspdf';
 import html2canvas from 'html2canvas';
 import { DatasheetService } from 'src/app/services/datasheet.service';
+import { ActivatedRoute } from '@angular/router';
 
 export interface PersonObject {
   Numero: string;
@@ -16,21 +17,29 @@ export interface PersonObject {
   styleUrls: ['./generated-certificate.component.scss']
 })
 export class GeneratedCertificateComponent implements OnInit {
-  fullCode: string;
-  code: string;
-  author: PersonObject;
+
+  email: string;
+
+  personObject: PersonObject;
+
+  wrongAdressError: boolean;
 
   // Tamanho do certificado em px
   certHeight = 600;
   certWidth = 800;
 
-  constructor(private dataCheck: DatasheetService) { }
+  constructor(private dataCheck: DatasheetService, private activatedRoute: ActivatedRoute) {
+    this.activatedRoute.queryParams.subscribe(params => {
+          this.email = params['email'];
+      });
+  }
 
   ngOnInit() {
-    this.fullCode = window.localStorage.getItem('code');
-
-    this.code = this.fullCode.substring(0, this.fullCode.length - 1);
-    this.author = this.dataCheck.getPersonObject(this.fullCode);
+    this.dataCheck.setEmail(this.email);
+    if (!this.dataCheck.doesItExist()) {
+      this.wrongAdressError = true;
+    }
+    this.personObject = this.dataCheck.findPersonObject();
   }
 
   getHeight() {
@@ -60,7 +69,7 @@ export class GeneratedCertificateComponent implements OnInit {
       const positionY = 25;
 
       pdf.addImage(contentDataURL, 'PNG', positionX, positionY, imgWidth, imgHeight);
-      pdf.save('Certificado' + this.code + '.pdf'); // Generated PDF
+      pdf.save('Certificado.pdf'); // PDF
     });
   }
 }

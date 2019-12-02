@@ -6,16 +6,14 @@
 >
   <div class="inner-container" fxLayoutAlign="start center" fxLayout="column">
     <div fxLayoutAlign="center end" [ngStyle]="{ height: '52%' }">
-      <form>
-        <input
-          required
-          [(ngModel)]="email"
-          (ngModelChange)="email = $event"
-          name="email"
-          placeholder="Email"
-        />
-        <button type="submit" (click)="fetchData()">Ok</button>
-      </form>
+      <input
+        required
+        [(ngModel)]="email"
+        (ngModelChange)="email = $event"
+        name="email"
+        placeholder="Email"
+      />
+      <button type="submit" (click)="fetchData()">Ok</button>
     </div>
     <div *ngIf="emptyError" class="warning-text">
       * O campo não deve estar vazio!
