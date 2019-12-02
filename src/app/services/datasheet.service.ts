@@ -26,6 +26,8 @@ export class DatasheetService {
 
   findCode(email: string): string {
     this.currentRepeat = 0;
+    this.code = null;
+
     for (const object of this.data) {
       if (object.Numero === this.currentCode) {
         this.currentRepeat++;
@@ -33,10 +35,13 @@ export class DatasheetService {
         this.currentRepeat = 0;
         this.currentCode = object.Numero;
       }
-      if (object.Email === email) {
+      if (object.Email.toLowerCase() === email.toLowerCase()) {
         this.code = object.Numero;
         this.repeatID = this.currentRepeat;
       }
+    }
+    if (this.code === null) {
+      return null;
     }
     return this.code + this.repeatID;
   }
