@@ -6,8 +6,8 @@ import { DatasheetService } from 'src/app/services/datasheet.service';
 export interface PersonObject {
   Numero: string;
   Titulo: string;
-  Autores: string;
-  Emails: string;
+  Nome: string;
+  Email: string;
 }
 
 @Component({
@@ -16,9 +16,9 @@ export interface PersonObject {
   styleUrls: ['./generated-certificate.component.scss']
 })
 export class GeneratedCertificateComponent implements OnInit {
+  fullCode: string;
   code: string;
-  title: string;
-  authorsList: PersonObject[];
+  author: PersonObject;
 
   // Tamanho do certificado em px
   certHeight = 600;
@@ -27,9 +27,10 @@ export class GeneratedCertificateComponent implements OnInit {
   constructor(private dataCheck: DatasheetService) { }
 
   ngOnInit() {
-    this.code = window.localStorage.getItem('code');
-    this.authorsList = this.dataCheck.getPersonObject(this.code);
-    this.title = this.authorsList[0].Titulo;
+    this.fullCode = window.localStorage.getItem('code');
+
+    this.code = this.fullCode.substring(0, this.fullCode.length - 1);
+    this.author = this.dataCheck.getPersonObject(this.fullCode);
   }
 
   getHeight() {

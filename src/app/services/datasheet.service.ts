@@ -4,8 +4,8 @@ import DataJSON from '../../assets/EIC-2019 - trabalhos aceitos.json';
 export interface PersonObject {
   Numero: string;
   Titulo: string;
-  Autores: string;
-  Emails: string;
+  Nome: string;
+  Email: string;
 }
 
 @Injectable({
@@ -16,26 +16,40 @@ export class DatasheetService {
   data: PersonObject[] = DataJSON['Trabalhos Aceitos'];
   authorsList: PersonObject[] = [];
   code: string = null;
+  repeatID: number;
+
+  currentCode: string = null;
+  currentRepeat: number = null;
 
   constructor() {
   }
 
   findCode(email: string): string {
+    this.currentRepeat = 0;
     for (const object of this.data) {
-      if (object.Emails === email) {
+      if (object.Numero === this.currentCode) {
+        this.currentRepeat++;
+      } else {
+        this.currentRepeat = 0;
+        this.currentCode = object.Numero;
+      }
+      if (object.Email === email) {
         this.code = object.Numero;
+        this.repeatID = this.currentRepeat;
       }
     }
-
-    return this.code;
+    return this.code + this.repeatID;
   }
 
-  getPersonObject(code: string) {
+  getPersonObject(fullCode: string) {
+    const code = fullCode.substring(0, fullCode.length - 1);
+    const specificAuthor = parseInt(fullCode.substring(fullCode.length - 1, fullCode.length));
+
     for (const object of this.data) {
       if (object.Numero === code) {
         this.authorsList.push(object);
       }
     }
-    return this.authorsList;
+    return this.authorsList[specificAuthor];
   }
 }

@@ -12,14 +12,9 @@
       <br>
       Número: {{ code }}
       <br>
-      Título: {{ authorsList[0].Titulo }}
+      Título: {{ author.Titulo }}
       <br>
-      Autores:
-      <br>
-      <div *ngFor="let author of authorsList">
-        - {{ author.Autores }}
-        <br>
-      </div>
+      Nome: {{ author.Nome }}
     </div>
 
     <div class="pdf-coverer" [ngStyle]="{width: getWidth(), height: getHeight()}"></div>
