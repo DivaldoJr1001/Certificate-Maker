@@ -38,7 +38,7 @@ export class InputCertificateComponent implements OnInit {
     }
 
     if (!this.emptyError && !this.notFoundError) {
-      this._router.navigate(['/certificado']);
+      this._router.navigate(['/certificado'], { queryParams: { email: this.email } });
     }
 
   }
