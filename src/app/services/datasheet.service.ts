@@ -4,6 +4,7 @@ import DataJSON from '../../assets/EIC-2019 - trabalhos aceitos.json';
 export interface PersonObject {
   Numero: string;
   Titulo: string;
+  Centro: string;
   Nome: string;
   Email: string;
 }

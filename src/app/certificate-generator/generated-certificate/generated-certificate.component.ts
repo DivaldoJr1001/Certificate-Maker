@@ -7,6 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 export interface PersonObject {
   Numero: string;
   Titulo: string;
+  Centro: string;
   Nome: string;
   Email: string;
 }
@@ -25,8 +26,8 @@ export class GeneratedCertificateComponent implements OnInit {
   wrongAdressError: boolean;
 
   // Tamanho do certificado em px
-  certHeight = 600;
   certWidth = 800;
+  certHeight = 564.34;
 
   constructor(private dataCheck: DatasheetService, private activatedRoute: ActivatedRoute) {
     this.activatedRoute.queryParams.subscribe(params => {
@@ -35,7 +36,7 @@ export class GeneratedCertificateComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.dataCheck.setEmail(this.email);
+    this.dataCheck.setEmail(this.email.toLowerCase());
     if (!this.dataCheck.doesItExist()) {
       this.wrongAdressError = true;
     }
@@ -55,9 +56,9 @@ export class GeneratedCertificateComponent implements OnInit {
     const data = document.getElementById('contentToConvert');
 
     html2canvas(data, {
-      scale: 2
+      scale: 2.5
   }).then(canvas => {
-      const imgWidth = 210;
+      const imgWidth = 250;
       const imgHeight = canvas.height * imgWidth / canvas.width;
 
       const contentDataURL = canvas.toDataURL('image/png');
@@ -66,7 +67,7 @@ export class GeneratedCertificateComponent implements OnInit {
 
       // Posicionamento da imagem em relação ao papel
       const positionX = 45;
-      const positionY = 25;
+      const positionY = 30;
 
       pdf.addImage(contentDataURL, 'PNG', positionX, positionY, imgWidth, imgHeight);
       pdf.save('Certificado.pdf'); // PDF

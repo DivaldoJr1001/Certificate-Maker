@@ -1,25 +1,37 @@
-<div
-  fxFlexFill
-  class="outer-container"
-  fxLayout="column"
-  fxLayoutAlign="center center"
->
-  <div class="inner-container" fxLayoutAlign="start center" fxLayout="column">
-    <div fxLayoutAlign="center end" [ngStyle]="{ height: '52%' }">
-      <input
-        required
-        [(ngModel)]="email"
-        (ngModelChange)="email = $event"
-        name="email"
-        placeholder="Email"
-      />
-      <button type="submit" (click)="fetchData()">Ok</button>
+<div fxFlexFill class="outer-container">
+  <div class="row">
+    <div fxLayoutAlign="center center" fxLayout="column">
+      <img src="./../../../assets/UniforLogo.png" alt="UniforLogo" />
+      <h3>
+        Diretoria de Pesquisa, Desenvolvimento e Inovação (DPDI)<br /><br />
+      </h3>
+      <h2>
+        Digite o email para gerar o certificado dos Encontros Científicos - 2019
+      </h2>
+      <div fxLayoutAlign="center center" fxLayout="column" class="email-field">
+        <div fxLayout="row">
+          <form>
+          <input
+            required
+            [(ngModel)]="email"
+            (ngModelChange)="email = $event"
+            name="email"
+            placeholder="Insira o seu Email"
+            autocomplete="off"
+          />
+
+          <button type="submit" (click)="fetchData()">Ok</button>
+        </form>
+        </div>
+        <div *ngIf="emptyError" class="warning-text">
+          * O campo não deve estar vazio!
+        </div>
+        <div *ngIf="notFoundError" class="warning-text">
+          * O email não foi encontrado!
+        </div>
+      </div>
     </div>
-    <div *ngIf="emptyError" class="warning-text">
-      * O campo não deve estar vazio!
-    </div>
-    <div *ngIf="notFoundError" class="warning-text">
-      * O email não foi encontrado!
-    </div>
+    <!-- end col -->
   </div>
+  <!-- end row -->
 </div>

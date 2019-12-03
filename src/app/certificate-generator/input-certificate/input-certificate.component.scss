@@ -1,16 +1,13 @@
 .outer-container {
   height: 100%;
   width: 100%;
+  background-color: rgb(157, 194, 219);
 }
 
+.warning-text {
+  color: red;
+}
 
-
-.inner-container {
-  height: 30%;
-  width: 30%;
-  border: solid;
-
-  .warning-text {
-    color: red;
-  }
+.email-field {
+  width: 100%;
 }

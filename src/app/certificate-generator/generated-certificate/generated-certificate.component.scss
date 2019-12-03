@@ -1,23 +1,25 @@
 .pdf-image {
-  border: solid;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  border: solid;
+  border-width: 3px;
 
   .background {
     position: absolute;
     z-index: 0;
+    width: 800px;
   }
 
   .foreground {
     position: absolute;
     z-index: 1;
-    border: solid;
-    width: 400px;
+    width: 540px;
     height: 200px;
-    margin-top: 300px;
-    margin-left: 200px;
+    margin-top: 120px;
+    margin-left: 235px;
+    text-align: justify;
   }
 
   .pdf-coverer {
@@ -33,4 +35,8 @@
 
 .space-right {
   margin-right: 1%;
+}
+
+.space-up {
+  margin-top: 10%;
 }
