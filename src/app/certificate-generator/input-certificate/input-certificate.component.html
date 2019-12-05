@@ -5,30 +5,51 @@
       <h3>
         Diretoria de Pesquisa, Desenvolvimento e Inovação (DPDI)<br /><br />
       </h3>
-      <h2>
-        Digite o email para gerar o certificado dos Encontros Científicos - 2019
-      </h2>
-      <div fxLayoutAlign="center center" fxLayout="column" class="email-field">
-        <div fxLayout="row">
-          <form>
-          <input
-            required
-            [(ngModel)]="email"
-            (ngModelChange)="email = $event"
-            name="email"
-            placeholder="Insira o seu Email"
-            autocomplete="off"
-          />
+      <div *ngIf="!approvedEmail">
+        <h2>
+          Digite o email para gerar o certificado dos Encontros Científicos -
+          2019
+        </h2>
+        <div
+          fxLayoutAlign="center center"
+          fxLayout="column"
+          class="email-field"
+        >
+          <div fxLayout="row">
+            <form>
+              <input
+                required
+                [(ngModel)]="email"
+                (ngModelChange)="email = $event"
+                name="email"
+                placeholder="Insira o seu Email"
+                autocomplete="off"
+              />
 
-          <button type="submit" (click)="fetchData()">Ok</button>
-        </form>
+              <button type="submit" (click)="fetchData()">Ok</button>
+            </form>
+          </div>
+          <div *ngIf="emptyError" class="warning-text">
+            * O campo não deve estar vazio!
+          </div>
+          <div *ngIf="notFoundError" class="warning-text">
+            * O email não foi encontrado!
+          </div>
         </div>
-        <div *ngIf="emptyError" class="warning-text">
-          * O campo não deve estar vazio!
-        </div>
-        <div *ngIf="notFoundError" class="warning-text">
-          * O email não foi encontrado!
-        </div>
+      </div>
+      <div fxLayoutAlign="start center" fxLayout="column" *ngIf="approvedEmail">
+          <h2>
+            {{username}}
+          </h2>
+          <h2>
+            Certificados Disponíveis:
+          </h2>
+          <h4 *ngFor="let code of codesList; let i = index">
+            <div class="certificate-link" (click)="goToLink(i)">{{ titlesList[i] }}</div>
+          </h4>
+          <h4>
+            <button (click)="cancelEmail()">Cancelar</button>
+          </h4>
       </div>
     </div>
     <!-- end col -->

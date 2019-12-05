@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import DataJSON from '../../assets/EIC-2019 - trabalhos aceitos.json';
+import { Injectable } from "@angular/core";
+import DataJSON from "../../assets/EIC-2019 - trabalhos aceitos.json";
 
 export interface PersonObject {
   Numero: string;
@@ -10,50 +10,74 @@ export interface PersonObject {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class DatasheetService {
-  private email: string = null;
-  private personObject: PersonObject;
 
-  data: PersonObject[] = DataJSON['Trabalhos Aceitos'];
-  authorsList: PersonObject[] = [];
-  code: string = null;
-  repeatID: number;
+  data: PersonObject[] = DataJSON["Trabalhos Aceitos"];
 
   currentCode: string = null;
   currentRepeat: number = null;
 
   constructor() {}
 
-  setEmail(email: string) {
-    this.email = email;
-  }
-
-  getEmail(): string {
-    return this.email;
-  }
-
-  doesItExist(): boolean {
+  doesItExist(email: string): boolean {
     let exists = false;
-    this.personObject = null;
-    if (this.email !== null && this.email !== undefined) {
-      for (const object of this.data) {
-        if (object.Email.toLowerCase() === this.email.toLowerCase()) {
-          exists = true;
-        }
+    for (const object of this.data) {
+      if (object.Email.toLowerCase() === email.toLowerCase()) {
+        exists = true;
       }
     }
     return exists;
   }
 
-  findPersonObject() {
-    this.personObject = null;
+  doesCodeExist(code: string): boolean {
+    let exists = false;
     for (const object of this.data) {
-      if (object.Email === this.email) {
-        this.personObject = object;
+      if (object.Numero === code) {
+        exists = true;
       }
     }
-    return this.personObject;
+    return exists;
+  }
+
+  findProjectName(code: string): string {
+    let projectName = '';
+    for (const object of this.data) {
+      if (object.Numero === code) {
+        projectName = object.Titulo;
+      }
+    }
+    return projectName;
+  }
+
+  findProjectCode(email: string): string[] {
+    let codeList = [];
+    for (const object of this.data) {
+      if (object.Email === email) {
+        codeList.push(object.Numero);
+      }
+    }
+    return codeList;
+  }
+
+  findUsername(email: string): string {
+    let username: string;
+    for (const object of this.data) {
+      if (object.Email === email) {
+        username = object.Nome;
+      }
+    }
+    return username;
+  }
+
+  findAuthorsList(code: string): PersonObject[] {
+    let authorsList = [];
+    for (const object of this.data) {
+      if (object.Numero === code) {
+        authorsList.push(object);
+      }
+    }
+    return authorsList;
   }
 }

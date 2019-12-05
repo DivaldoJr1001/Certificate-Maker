@@ -18,10 +18,9 @@ export interface PersonObject {
   styleUrls: ['./generated-certificate.component.scss']
 })
 export class GeneratedCertificateComponent implements OnInit {
+  code: string;
 
-  email: string;
-
-  personObject: PersonObject;
+  authorsList: PersonObject[] = [];
 
   wrongAdressError: boolean;
 
@@ -29,18 +28,39 @@ export class GeneratedCertificateComponent implements OnInit {
   certWidth = 800;
   certHeight = 564.34;
 
-  constructor(private dataCheck: DatasheetService, private activatedRoute: ActivatedRoute) {
+  constructor(
+    private dataCheck: DatasheetService,
+    private activatedRoute: ActivatedRoute
+  ) {
     this.activatedRoute.queryParams.subscribe(params => {
-          this.email = params['email'];
-      });
+      this.code = params['code'];
+    });
   }
 
   ngOnInit() {
-    this.dataCheck.setEmail(this.email.toLowerCase());
-    if (!this.dataCheck.doesItExist()) {
+    if (!this.dataCheck.doesCodeExist(this.code)) {
       this.wrongAdressError = true;
     }
-    this.personObject = this.dataCheck.findPersonObject();
+
+    this.authorsList = this.dataCheck.findAuthorsList(this.code);
+
+  }
+
+  getAuthorsString(): string {
+    let authorsString: string = '';
+
+    for (let i = 0; i < this.authorsList.length; i++) {
+      authorsString += this.authorsList[i].Nome;
+      if (i < this.authorsList.length - 1) {
+        authorsString += ', ';
+      }
+      if (i === this.authorsList.length - 2) {
+        authorsString += ' e ';
+      }
+    }
+    authorsString += ',';
+
+    return authorsString;
   }
 
   getHeight() {
@@ -57,20 +77,27 @@ export class GeneratedCertificateComponent implements OnInit {
 
     html2canvas(data, {
       scale: 2.5
-  }).then(canvas => {
-      const imgWidth = 250;
-      const imgHeight = canvas.height * imgWidth / canvas.width;
-
+    }).then(canvas => {
       const contentDataURL = canvas.toDataURL('image/png');
 
       const pdf = new jspdf('landscape', 'mm', 'a4'); // A4 size page of PDF
 
-      // Posicionamento da imagem em relação ao papel
-      const positionX = 45;
-      const positionY = 30;
+      const imgWidth = pdf.internal.pageSize.getWidth();
+      const imgHeight = pdf.internal.pageSize.getHeight() + 0.2;
 
-      pdf.addImage(contentDataURL, 'PNG', positionX, positionY, imgWidth, imgHeight);
-      pdf.save('Certificado.pdf'); // PDF
+      // Posicionamento da imagem em relação ao papel
+      const positionX = 0;
+      const positionY = 0;
+
+      pdf.addImage(
+        contentDataURL,
+        'PNG',
+        positionX,
+        positionY,
+        imgWidth,
+        imgHeight
+      );
+      pdf.save('Certificado (' + this.code + ').pdf'); // PDF
     });
   }
 }

@@ -2,25 +2,44 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.3/jspdf.min.js"></script>
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
 
-
-<div *ngIf="!wrongAdressError" fxFlexFill class="outer-container" fxLayoutAlign="center center" fxLayout="column">
-  <div class="pdf-image" id="contentToConvert" [ngStyle]="{width: getWidth(), height: getHeight()}">
+<div
+  *ngIf="!wrongAdressError"
+  class="outer-container"
+  fxLayoutAlign="center center"
+  fxLayout="column"
+>
+  <div
+    class="pdf-image"
+    id="{{ 'contentToConvert' }}"
+    [ngStyle]="{ width: getWidth(), height: getHeight() }"
+  >
     <img class="background" src="./../../../assets/Certificado.png" />
 
     <div class="foreground">
-      Certificamos que o trabalho "<b>{{ personObject.Titulo }}</b>," de autoria de <b>{{ personObject.Nome }}</b>,
-      foi apresentado na Área de {{ personObject.Centro }} do XXV Encontro de Iniciação à Pesquisa da Universidade
-      de Fortaleza, realizado no período de 16 a 18 de outubro de 2019.
+      Certificamos que o trabalho "<b>{{ authorsList[0].Titulo }}</b
+      >," de autoria de <b>{{ getAuthorsString() }}</b
+      > foi apresentado na Área de <b>{{ authorsList[0].Centro }}</b> do XXV
+      Encontro de Iniciação à Pesquisa da Universidade de Fortaleza, realizado
+      no período de 16 a 18 de outubro de 2019.
       <div class="space-up" fxLayoutAlign="center center">
         18 de outubro de 2019.
       </div>
     </div>
 
-    <div class="pdf-coverer" [ngStyle]="{width: getWidth(), height: getHeight()}"></div>
+    <div
+      class="pdf-coverer"
+      [ngStyle]="{ width: getWidth(), height: getHeight() }"
+    ></div>
   </div>
-  <div class="buttons no-print" fxLayout="row" fxLayoutAlign="center center" [ngStyle]="{width: certWidth}">
-    <button (click)="getPDF()">Baixar como PDF</button>
+  <div
+    class="buttons no-print"
+    fxLayout="column"
+    fxLayoutAlign="center center"
+    [ngStyle]="{ width: certWidth }"
+  >
+    <button id="download" (click)="getPDF()">Baixar como PDF</button>
   </div>
+  <div>* Caso o PDF esteja formatado incorretamente, altere o zoom até que a imagem visível esteja correta.</div>
 </div>
 
 <div *ngIf="wrongAdressError">

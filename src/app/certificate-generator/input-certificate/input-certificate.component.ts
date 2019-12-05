@@ -10,10 +10,16 @@ import { Router } from '@angular/router';
 export class InputCertificateComponent implements OnInit {
 
   email: string;
-  code: string;
 
   emptyError: boolean;
   notFoundError: boolean;
+
+  approvedEmail: boolean = false;
+
+  codesList: string[] = [];
+  titlesList: string[] = [];
+
+  username: string;
 
   constructor(private dataCheck: DatasheetService, private _router: Router) { }
 
@@ -27,20 +33,33 @@ export class InputCertificateComponent implements OnInit {
     this.emptyError = false;
     this.notFoundError = false;
 
-    this.dataCheck.setEmail(this.email);
-
     if (this.email === '') {
       this.emptyError = true;
     }
 
     if (!this.emptyError) {
-      this.notFoundError = !this.dataCheck.doesItExist();
+      this.notFoundError = !this.dataCheck.doesItExist(this.email);
     }
 
     if (!this.emptyError && !this.notFoundError) {
-      this._router.navigate(['/certificado'], { queryParams: { email: this.email } });
+      this.approvedEmail = true;
+      this.codesList = this.dataCheck.findProjectCode(this.email);
+      this.username = this.dataCheck.findUsername(this.email);
+      for (const code of this.codesList) {
+        this.titlesList.push(this.dataCheck.findProjectName(code));
+      }
     }
 
+  }
+
+  cancelEmail() {
+    this.approvedEmail = false;
+    this.email = '';
+    this.codesList = [];
+  }
+
+  goToLink(num: number) {
+    window.open('/certificado?code=' + this.codesList[num]);
   }
 
 }
