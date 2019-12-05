@@ -37,9 +37,9 @@
     fxLayoutAlign="center center"
     [ngStyle]="{ width: certWidth }"
   >
-    <button id="download" (click)="getPDF()">Baixar como PDF</button>
+    <button mat-button [ngStyle]="{ 'background-color': 'white'}" id="button" (click)="getPDF()">Baixar como PDF</button>
   </div>
-  <div>* Caso o PDF esteja formatado incorretamente, altere o zoom até que a imagem visível esteja correta.</div>
+  <div>* Caso o PDF esteja formatado incorretamente ou incompleto após baixar, altere o zoom até que a imagem visível na tela seja adequada.</div>
 </div>
 
 <div *ngIf="wrongAdressError">
