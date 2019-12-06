@@ -1,3 +1,7 @@
+.backup-text{
+  margin-top: 2%;
+}
+
 .pdf-image {
   position: relative;
   -webkit-user-select: none;
@@ -51,4 +55,8 @@
 .link-text {
   cursor: pointer;
   color: blue;
+}
+
+::ng-deep body {
+  overflow: hidden;
 }

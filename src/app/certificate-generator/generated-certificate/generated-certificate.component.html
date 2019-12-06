@@ -8,10 +8,11 @@
   fxLayoutAlign="center center"
   fxLayout="column"
 >
+  <div class='backup-text'>* Caso o download do PDF não inicie automaticamente, aperte <b class="link-text" (click)="getPDF()">aqui</b>.</div>
   <div
     class="pdf-image"
     id="{{ 'contentToConvert' }}"
-    [ngStyle]="{ width: getWidth(), height: getHeight() }"
+    [ngStyle]="{ width: getWidth(), height: getHeight()}"
   >
     <img class="background" id="backgroundImage" src="./../../../assets/Certificado.png" />
 
@@ -31,7 +32,6 @@
       [ngStyle]="{ width: getWidth(), height: getHeight() }"
     ></div>
   </div>
-  <div>* Caso o download do PDF não inicie automaticamente, aperte <b class="link-text" (click)="getPDF()">aqui</b>.</div>
 </div>
 
 <div *ngIf="wrongAdressError">

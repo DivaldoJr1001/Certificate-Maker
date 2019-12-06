@@ -1,6 +1,9 @@
 .outer-container {
+  position: relative;
   height: 100%;
   width: 100%;
+  min-width: 1354px;
+  min-height: 657px;
 }
 
 .warning-text {

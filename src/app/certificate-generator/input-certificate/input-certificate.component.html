@@ -38,18 +38,20 @@
         </div>
       </div>
       <div fxLayoutAlign="start center" fxLayout="column" *ngIf="approvedEmail">
-          <h2>
-            {{username}}
-          </h2>
-          <h3>
-            Certificados Disponíveis:
-          </h3>
-          <h4 *ngFor="let code of codesList; let i = index">
-            <div class="certificate-link" (click)="goToLink(i)">Trabalho {{code}}: {{ titlesList[i] }}</div>
-          </h4>
-          <h4>
-            <button (click)="cancelEmail()">Cancelar</button>
-          </h4>
+        <h2>
+          {{ username }}
+        </h2>
+        <h3>
+          Certificados Disponíveis:
+        </h3>
+        <h4 *ngFor="let code of codesList; let i = index">
+          <div class="certificate-link" (click)="goToLink(i)">
+            Trabalho {{ code }}: {{ titlesList[i] }}
+          </div>
+        </h4>
+        <h4>
+          <button (click)="cancelEmail()">Cancelar</button>
+        </h4>
       </div>
     </div>
     <!-- end col -->
