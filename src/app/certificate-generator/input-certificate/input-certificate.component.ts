@@ -59,7 +59,8 @@ export class InputCertificateComponent implements OnInit {
   }
 
   goToLink(num: number) {
-    window.open('/certificado?code=' + this.codesList[num]);
+    window.open('/certificado?code=' + this.codesList[num], '_blank');
+    window.focus();
   }
 
 }

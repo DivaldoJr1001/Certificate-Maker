@@ -13,7 +13,7 @@
     id="{{ 'contentToConvert' }}"
     [ngStyle]="{ width: getWidth(), height: getHeight() }"
   >
-    <img class="background" src="./../../../assets/Certificado.png" />
+    <img class="background" id="backgroundImage" src="./../../../assets/Certificado.png" />
 
     <div class="foreground">
       Certificamos que o trabalho "<b>{{ authorsList[0].Titulo }}</b
@@ -31,15 +31,7 @@
       [ngStyle]="{ width: getWidth(), height: getHeight() }"
     ></div>
   </div>
-  <div
-    class="buttons no-print"
-    fxLayout="column"
-    fxLayoutAlign="center center"
-    [ngStyle]="{ width: certWidth }"
-  >
-    <button mat-button [ngStyle]="{ 'background-color': 'white'}" id="button" (click)="getPDF()">Baixar como PDF</button>
-  </div>
-  <div>* Caso o PDF esteja formatado incorretamente ou incompleto após baixar, altere o zoom até que a imagem visível na tela seja adequada.</div>
+  <div>* Caso o download do PDF não inicie automaticamente, aperte <b class="link-text" (click)="getPDF()">aqui</b>.</div>
 </div>
 
 <div *ngIf="wrongAdressError">

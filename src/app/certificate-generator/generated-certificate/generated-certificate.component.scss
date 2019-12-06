@@ -1,10 +1,14 @@
 .pdf-image {
+  position: relative;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
   border: solid;
   border-width: 3px;
+  width: 800px;
+  height: 564.34px;
+  margin-top: 2%;
 
   .background {
     position: absolute;
@@ -43,3 +47,8 @@
 }
 
 .html2canvas-container { width: 3000px !important; height: 3000px !important; }
+
+.link-text {
+  cursor: pointer;
+  color: blue;
+}

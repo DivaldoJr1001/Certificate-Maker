@@ -37,7 +37,12 @@ export class GeneratedCertificateComponent implements OnInit {
     });
   }
 
+  ngAfterViewInit() {
+    this.getPDF();
+}
+
   ngOnInit() {
+    window.blur();
     if (!this.dataCheck.doesCodeExist(this.code)) {
       this.wrongAdressError = true;
     }
@@ -73,6 +78,7 @@ export class GeneratedCertificateComponent implements OnInit {
 
   getPDF() {
     // div que vai tornar-se um pdf
+    window.scrollTo(0, 0);
     const data = document.getElementById('contentToConvert');
 
     html2canvas(data, {
@@ -82,7 +88,7 @@ export class GeneratedCertificateComponent implements OnInit {
 
       const pdf = new jspdf('landscape', 'mm', 'a4'); // A4 size page of PDF
 
-      const imgWidth = pdf.internal.pageSize.getWidth();
+      const imgWidth = pdf.internal.pageSize.getWidth() + 0.2;
       const imgHeight = pdf.internal.pageSize.getHeight() + 0.2;
 
       // Posicionamento da imagem em relação ao papel
@@ -98,6 +104,8 @@ export class GeneratedCertificateComponent implements OnInit {
         imgHeight
       );
       pdf.save('Certificado (' + this.code + ').pdf'); // PDF
+      window.close();
     });
   }
 }
+
