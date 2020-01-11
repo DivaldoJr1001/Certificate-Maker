@@ -22,7 +22,7 @@ console.log('Node server running on port 8081');
 // -----------------------------------------------------------------------------------------------------------
 // Configurations for E-mails
 
-const myEmail = 'divaldojr9@gmail.com';
+const myEmail = 'xxxxxxxxxxxxx';
 const myPassword = 'xxxxxxxxxx';
 
 const path = 'C:/Users/Samsung/Downloads/Certificado 2.pdf';
