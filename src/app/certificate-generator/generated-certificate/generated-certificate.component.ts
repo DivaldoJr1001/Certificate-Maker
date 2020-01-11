@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import jspdf from 'jspdf';
 import html2canvas from 'html2canvas';
 import { DatasheetService } from 'src/app/services/datasheet.service';
@@ -17,7 +17,7 @@ export interface PersonObject {
   templateUrl: './generated-certificate.component.html',
   styleUrls: ['./generated-certificate.component.scss']
 })
-export class GeneratedCertificateComponent implements OnInit {
+export class GeneratedCertificateComponent implements OnInit, AfterViewInit {
   code: string;
 
   authorsList: PersonObject[] = [];
@@ -103,8 +103,8 @@ export class GeneratedCertificateComponent implements OnInit {
         imgWidth,
         imgHeight
       );
-      pdf.save('Certificado (' + this.code + ').pdf'); // PDF
-      window.close();
+      pdf.save('Certificado ' + this.authorsList[0].Numero + '.pdf'); // PDF
+      setTimeout(window.close, 15);
     });
   }
 }

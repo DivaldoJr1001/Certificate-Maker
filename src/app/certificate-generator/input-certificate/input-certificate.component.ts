@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DatasheetService } from 'src/app/services/datasheet.service';
-import { Router } from '@angular/router';
+
+declare var require: any;
 
 @Component({
   selector: 'app-input-certificate',
@@ -9,19 +10,27 @@ import { Router } from '@angular/router';
 })
 export class InputCertificateComponent implements OnInit {
 
+  fs = require('fs');
+
   email: string;
+
+  downloadPath: string = 'C:\\Users\\Samsung\\Downloads';
+
+  downloadCounter: number = 0;
+
+  downloadLoop;
 
   emptyError: boolean;
   notFoundError: boolean;
 
-  approvedEmail: boolean = false;
+  approvedEmail = false;
 
   codesList: string[] = [];
   titlesList: string[] = [];
 
   username: string;
 
-  constructor(private dataCheck: DatasheetService, private _router: Router) { }
+  constructor(private dataCheck: DatasheetService) { }
 
   ngOnInit() {
     this.emptyError = false;
@@ -58,9 +67,51 @@ export class InputCertificateComponent implements OnInit {
     this.codesList = [];
   }
 
+  updatePath() {
+    this.dataCheck.downloadPath = this.downloadPath;
+    console.log(this.downloadPath);
+  }
+
+  downloadCertificates() {
+    const w = this;
+    this.downloadCounter = 0;
+
+    this.downloadLoop = setInterval(
+      function() {
+        w.downloadCounter++;
+        console.log(parseInt(w.dataCheck.worksList[w.downloadCounter].Numero));
+
+        window.open('/certificado?code=' + parseInt(w.dataCheck.worksList[w.downloadCounter].Numero), '_blank');
+
+        if (w.downloadCounter > 4) {
+          clearInterval(w.downloadLoop);
+        }
+      },
+
+      2000);
+  }
+
+  sendEmails() {
+    console.log(this.downloadPath);
+
+    const file = new File(["Certificado 2"], "Certificado 2.pdf");
+
+    this.fs.readFile("./attachment.txt", function (err, data) {
+      console.log("Works");
+  });
+
+
+
+  }
+
   goToLink(num: number) {
+
+    this.downloadCounter++;
     window.open('/certificado?code=' + this.codesList[num], '_blank');
-    window.focus();
+
+    if (this.downloadCounter === 303) {
+      clearInterval(this.downloadLoop);
+    }
   }
 
 }
