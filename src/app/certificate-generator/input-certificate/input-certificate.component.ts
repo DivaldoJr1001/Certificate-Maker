@@ -1,20 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-import { DatasheetService } from 'src/app/services/datasheet.service';
+import { Component, OnInit } from "@angular/core";
+import { DatasheetService } from "src/app/services/datasheet.service";
 
 declare var require: any;
 
 @Component({
-  selector: 'app-input-certificate',
-  templateUrl: './input-certificate.component.html',
-  styleUrls: ['./input-certificate.component.scss']
+  selector: "app-input-certificate",
+  templateUrl: "./input-certificate.component.html",
+  styleUrls: ["./input-certificate.component.scss"]
 })
 export class InputCertificateComponent implements OnInit {
-
-  fs = require('fs');
+  fs = require("fs");
 
   email: string;
 
-  downloadPath: string = 'C:\\Users\\Samsung\\Downloads';
+  downloadPath: string = "C:\\Users\\Samsung\\Downloads";
 
   downloadCounter: number = 0;
 
@@ -30,19 +29,19 @@ export class InputCertificateComponent implements OnInit {
 
   username: string;
 
-  constructor(private dataCheck: DatasheetService) { }
+  constructor(private dataCheck: DatasheetService) {}
 
   ngOnInit() {
     this.emptyError = false;
     this.notFoundError = false;
-    this.email = '';
+    this.email = "";
   }
 
   fetchData() {
     this.emptyError = false;
     this.notFoundError = false;
 
-    if (this.email === '') {
+    if (this.email === "") {
       this.emptyError = true;
     }
 
@@ -58,12 +57,11 @@ export class InputCertificateComponent implements OnInit {
         this.titlesList.push(this.dataCheck.findProjectName(code));
       }
     }
-
   }
 
   cancelEmail() {
     this.approvedEmail = false;
-    this.email = '';
+    this.email = "";
     this.codesList = [];
   }
 
@@ -81,14 +79,19 @@ export class InputCertificateComponent implements OnInit {
         w.downloadCounter++;
         console.log(parseInt(w.dataCheck.worksList[w.downloadCounter].Numero));
 
-        window.open('/certificado?code=' + parseInt(w.dataCheck.worksList[w.downloadCounter].Numero), '_blank');
+        window.open(
+          "/certificado?code=" +
+            parseInt(w.dataCheck.worksList[w.downloadCounter].Numero),
+          "_blank"
+        );
 
-        if (w.downloadCounter > 4) {
+        if (w.downloadCounter > 303) {
           clearInterval(w.downloadLoop);
         }
       },
 
-      2000);
+      2000
+    );
   }
 
   sendEmails() {
@@ -96,22 +99,27 @@ export class InputCertificateComponent implements OnInit {
 
     const file = new File(["Certificado 2"], "Certificado 2.pdf");
 
-    this.fs.readFile("./attachment.txt", function (err, data) {
+    this.fs.readFile("./attachment.txt", function(err, data) {
       console.log("Works");
-  });
+    });
+  }
 
 
-
+  downloadList(content = JSON.stringify(this.dataCheck.personList), fileName = 'Lista de Participantes.json', contentType = 'text/plain') {
+    console.log(JSON.stringify(this.dataCheck.personList));
+    let a = document.createElement("a");
+    let file = new Blob([content], {type: contentType});
+    a.href = URL.createObjectURL(file);
+    a.download = fileName;
+    a.click();
   }
 
   goToLink(num: number) {
-
     this.downloadCounter++;
-    window.open('/certificado?code=' + this.codesList[num], '_blank');
+    window.open("/certificado?code=" + this.codesList[num], "_blank");
 
     if (this.downloadCounter === 303) {
       clearInterval(this.downloadLoop);
     }
   }
-
 }

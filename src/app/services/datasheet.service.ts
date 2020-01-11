@@ -12,7 +12,7 @@ export interface FullObject {
 export interface PersonObject {
   Nome: string;
   Email: string;
-  Trabalhos: string[];
+  Trabalhos: WorkObject[];
 }
 
 export interface WorkObject {
@@ -40,13 +40,25 @@ export class DatasheetService {
   constructor() {
     this.data.sort((a, b) => (a.Nome.toLowerCase() > b.Nome.toLowerCase()) ? 1 : -1);
 
-    this.personList.push(this.personConstructor(this.data[0].Nome, this.data[0].Email.toLowerCase(), [this.data[0].Numero]));
+    this.personList.push(this.personConstructor(this.data[0].Nome, this.data[0].Email.toLowerCase(), [{
+      Numero: this.data[0].Numero,
+      Titulo: this.data[0].Titulo,
+      Centro: this.data[0].Centro
+    }]));
 
     for (const object of this.data) {
       if (object.Email !== this.personList[this.personList.length - 1].Email) {
-        this.personList.push(this.personConstructor(object.Nome, object.Email.toLowerCase(), [object.Numero]));
+        this.personList.push(this.personConstructor(object.Nome, object.Email.toLowerCase(), [{
+          Numero: object.Numero,
+          Titulo: object.Titulo,
+          Centro: object.Centro
+        }]));
       } else {
-        this.personList[this.personList.length - 1].Trabalhos.push(object.Numero);
+        this.personList[this.personList.length - 1].Trabalhos.push({
+          Numero: object.Numero,
+          Titulo: object.Titulo,
+          Centro: object.Centro
+        });
         this.personList[this.personList.length - 1].Trabalhos.sort((a, b) => (a > b) ? 1 : -1);
       }
     }
@@ -63,11 +75,11 @@ export class DatasheetService {
       }
     }
 
-    console.log(this.personList);
     console.log(this.worksList);
+    console.log(this.personList);
   }
 
-  personConstructor(nome: string = '', email: string = '', trabalhos: string[] = ['']): PersonObject {
+  personConstructor(nome: string = '', email: string = '', trabalhos: WorkObject[] = []): PersonObject {
     let person: PersonObject = {
       Nome: nome,
       Email: email,

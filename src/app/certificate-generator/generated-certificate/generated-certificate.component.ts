@@ -101,7 +101,9 @@ export class GeneratedCertificateComponent implements OnInit, AfterViewInit {
         positionX,
         positionY,
         imgWidth,
-        imgHeight
+        imgHeight,
+        null,
+        'slow'
       );
       pdf.save('Certificado ' + this.authorsList[0].Numero + '.pdf'); // PDF
       setTimeout(window.close, 15);

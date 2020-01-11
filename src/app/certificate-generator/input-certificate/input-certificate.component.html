@@ -18,20 +18,6 @@
             (click)="downloadCertificates()">Gerar Certificados</button>
             <div>Número de certificados esperado: 304</div>
           </div>
-          <div [ngStyle]="{ 'margin-bottom': '30px' }" fxLayout="column">
-            <input
-              [(ngModel)]="downloadPath"
-              (ngModelChange)="downloadPath = $event; updatePath()"
-              name="download-path"
-              placeholder="Caminho para os Certificados (Ex: C:\Users\User\Downloads)"
-              autocomplete="off"
-            />
-            <button
-            mat-stroked-button
-            [ngStyle]="{'background': 'gray', 'margin-top': '15px', 'margin-bottom': '15px'}"
-            (click)="sendEmails()">Enviar Certificados</button>
-            <div>Executar apenas com todos os certificados na pasta</div>
-          </div>
           <div fxLayout="row">
             <form>
               <input
