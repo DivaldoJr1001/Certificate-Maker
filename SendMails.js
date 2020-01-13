@@ -78,7 +78,7 @@ const studentsList = JSON.parse(fs.readFileSync('./src/assets/Lista de Participa
 for (student of studentsList) {
 
   mail = {
-    from: "Unifor",
+    from: myEmail,
     to: student.Email,
     subject:
       "XXV Encontro de Iniciação à Pesquisa da Universidade de Fortaleza",
