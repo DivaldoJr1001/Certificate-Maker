@@ -1,43 +1,31 @@
 [
   {
-    "Nome": "Teste1",
-    "Email": "divaldojr9@hotmail.com",
+    "Nome": "Mirtha Braz",
+    "Email": "mirthafernanda@unifor.br",
     "Trabalhos": [
       {
         "Numero": "200969",
         "Titulo": "Ambientes de home care e u.t.i. na percepção de pacientes em processo de finitude e seus cuidadores",
         "Centro": "Ciências da Vida"
-      }
-    ]
-  },
-  {
-    "Nome": "Teste2",
-    "Email": "divaldojr9@hotmail.com",
-    "Trabalhos": [
+      },
       {
-        "Numero": "200356",
-        "Titulo": "Crise de replicabilidade, ciência aberta e pré-registro: Um relato de experiência",
+        "Numero": "200928",
+        "Titulo": "Predictive Regression Model for Real Estate pricing using Machine Learning",
+        "Centro": "Ciências Exatas e Tecnológicas"
+      },
+      {
+        "Numero": "200544",
+        "Titulo": "Avaliação do efeito citotóxico da lectina DAL de Dioclea altíssima sobre linhagem de células de carcinoma mamário MDA-MB-231",
         "Centro": "Ciências da Vida"
       },
       {
-        "Numero": "200455",
-        "Titulo": "Apoio a Movimentos Sociais e Redução do Preconceito",
-        "Centro": "Ciências da Vida"
-      }
-    ]
-  },
-  {
-    "Nome": "Teste3",
-    "Email": "divaldojr9@hotmail.com",
-    "Trabalhos": [
-      {
-        "Numero": "200356",
-        "Titulo": "Crise de replicabilidade, ciência aberta e pré-registro: Um relato de experiência",
+        "Numero": "200776",
+        "Titulo": "Avaliação do efeito citotóxico da lectina frutalina sobre células da linhagem HL-60 (Leucemia)",
         "Centro": "Ciências da Vida"
       },
       {
-        "Numero": "200455",
-        "Titulo": "Apoio a Movimentos Sociais e Redução do Preconceito",
+        "Numero": "200654",
+        "Titulo": "Caracterização do efeito citotóxico da lectina de Dioclea altíssima sobre células da linhagem HL-60 (leucemia)",
         "Centro": "Ciências da Vida"
       }
     ]

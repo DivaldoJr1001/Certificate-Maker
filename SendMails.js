@@ -65,17 +65,14 @@ var emailCounter = 0;
 // Código modificável
 
 // Email e senha da conta que vai enviar as mensagens
-const myEmail = "";
-const myPassword = "";
+const myEmail = "pesquisadpdiunifor@gmail.com";
+const myPassword = "pesquisadpdiunifor2020";
 
 // Caminho completo até a pasta onde se encontram os certificados
 const certificatesPath = "./src/assets/Certificados";
 
 // Arquivo com as informações a serem utilizadas nos emails
 const studentsList = JSON.parse(fs.readFileSync('./src/assets/Lista de Participantes (Teste).json'));
-
-// Flags para casos que mudem a mensagem
-let multipleWorks = true;
 
 // Loop de envio de mensagens
 for (student of studentsList) {
@@ -86,9 +83,27 @@ for (student of studentsList) {
     subject:
       "XXV Encontro de Iniciação à Pesquisa da Universidade de Fortaleza",
     html:
-      "Olá, " +
-      student.Nome +
-      ".<br>Aqui estão os seus certificados do <b>XXV Encontro de Iniciação à Pesquisa da Universidade de Fortaleza</b>.<br><br>Caso haja algum problema ou uma dúvida, contate a central de suporte.",
+      "Prezado(a) Participante,"
+      + "<br><br>" +
+      "Viemos, por meio deste, enviar o certificado de participação no <b>XXV ENCONTRO DE INICIAÇÃO À PESQUISA 2019, DA UNIVERSIDADE DE FORTALEZA</b>."
+      + "<br><br>" +
+      "Atenciosamente,"
+      + "<br><br>" +
+      "Diretoria de Pesquisa, Desenvolvimento e Inovação - DPDI."
+      + "<br><br><br>" +
+      "<a href='https://unifor.br/'>Unifor.br</a> | "
+      +
+      "<a href='https://www.instagram.com/uniforcomunica/?hl=pt-br'>Instagram</a> | "
+      +
+      "<a href='https://www.facebook.com/uniforoficial/'>Facebook</a> | "
+      +
+      "<a href='https://twitter.com/UniforOficial'>Twitter</a>  | "
+      +
+      "<a href='https://www.linkedin.com/school/university-of-fortaleza/?originalSubdomain=pt'>LinkedIn</a> | "
+      +
+      "<a href='https://www.unifor.br/tv-unifor'>TV Unifor</a> | "
+      +
+      "<a href='https://g1.globo.com/ce/ceara/especial-publicitario/unifor/ensinando-e-aprendendo/'>G1/Ensinando e Aprendendo</a>",
     attachments: findWorks(student.Trabalhos)
   };
 
