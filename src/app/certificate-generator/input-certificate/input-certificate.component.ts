@@ -1,21 +1,19 @@
-import { Component, OnInit } from "@angular/core";
-import { DatasheetService } from "src/app/services/datasheet.service";
+import { Component, OnInit } from '@angular/core';
+import { DatasheetService } from 'src/app/services/datasheet.service';
 
 declare var require: any;
 
 @Component({
-  selector: "app-input-certificate",
-  templateUrl: "./input-certificate.component.html",
-  styleUrls: ["./input-certificate.component.scss"]
+  selector: 'app-input-certificate',
+  templateUrl: './input-certificate.component.html',
+  styleUrls: ['./input-certificate.component.scss']
 })
 export class InputCertificateComponent implements OnInit {
-  fs = require("fs");
+  fs = require('fs');
 
   email: string;
 
-  downloadPath: string = "C:\\Users\\Samsung\\Downloads";
-
-  downloadCounter: number = 0;
+  downloadCounter = 0;
 
   downloadLoop;
 
@@ -29,19 +27,23 @@ export class InputCertificateComponent implements OnInit {
 
   username: string;
 
+  firstDownload: number = 1;
+
+  lastDownload: number = 2;
+
   constructor(private dataCheck: DatasheetService) {}
 
   ngOnInit() {
     this.emptyError = false;
     this.notFoundError = false;
-    this.email = "";
+    this.email = '';
   }
 
   fetchData() {
     this.emptyError = false;
     this.notFoundError = false;
 
-    if (this.email === "") {
+    if (this.email === '') {
       this.emptyError = true;
     }
 
@@ -61,54 +63,38 @@ export class InputCertificateComponent implements OnInit {
 
   cancelEmail() {
     this.approvedEmail = false;
-    this.email = "";
+    this.email = '';
     this.codesList = [];
-  }
-
-  updatePath() {
-    this.dataCheck.downloadPath = this.downloadPath;
-    console.log(this.downloadPath);
   }
 
   downloadCertificates() {
     const w = this;
-    this.downloadCounter = 0;
+    w.downloadCounter = w.firstDownload - 1;
 
     this.downloadLoop = setInterval(
-      function() {
-        w.downloadCounter++;
+      async function() {
         console.log(parseInt(w.dataCheck.worksList[w.downloadCounter].Numero));
 
         window.open(
-          "/certificado?code=" +
+          '/certificado?code=' +
             parseInt(w.dataCheck.worksList[w.downloadCounter].Numero),
-          "_blank"
+          '_blank'
         );
 
-        if (w.downloadCounter > 303) {
+        if (w.downloadCounter === w.lastDownload - 1) {
           clearInterval(w.downloadLoop);
         }
+
+        w.downloadCounter++;
       },
-
-      2000
     );
-  }
-
-  sendEmails() {
-    console.log(this.downloadPath);
-
-    const file = new File(["Certificado 2"], "Certificado 2.pdf");
-
-    this.fs.readFile("./attachment.txt", function(err, data) {
-      console.log("Works");
-    });
   }
 
 
   downloadList(content = JSON.stringify(this.dataCheck.personList), fileName = 'Lista de Participantes.json', contentType = 'text/plain') {
     console.log(JSON.stringify(this.dataCheck.personList));
-    let a = document.createElement("a");
-    let file = new Blob([content], {type: contentType});
+    const a = document.createElement('a');
+    const file = new Blob([content], {type: contentType});
     a.href = URL.createObjectURL(file);
     a.download = fileName;
     a.click();
@@ -116,10 +102,6 @@ export class InputCertificateComponent implements OnInit {
 
   goToLink(num: number) {
     this.downloadCounter++;
-    window.open("/certificado?code=" + this.codesList[num], "_blank");
-
-    if (this.downloadCounter === 303) {
-      clearInterval(this.downloadLoop);
-    }
+    window.open('/certificado?code=' + this.codesList[num], '_blank');
   }
 }

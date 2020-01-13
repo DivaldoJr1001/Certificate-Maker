@@ -16,7 +16,29 @@
             mat-stroked-button
             [ngStyle]="{'background': 'gray', 'margin-top': '15px', 'margin-bottom': '15px'}"
             (click)="downloadCertificates()">Gerar Certificados</button>
-            <div>Número de certificados esperado: 304</div>
+            <div fxLayout="row" fxLayoutAlign="start center">
+              <div>Posição do primeiro certificado a gerar (1 a 304): </div>
+              <input
+                required
+                [(ngModel)]="firstDownload"
+                (ngModelChange)="firstDownload = $event"
+                name="firstDownload"
+                autocomplete="off"
+                [ngStyle]="{'width': '20px', 'margin-left': '10px'}"
+              />
+            </div>
+            <div fxLayout="row" fxLayoutAlign="space-between center">
+              <div>Posição do último certificado a gerar (1 a 304): </div>
+              <input
+                required
+                [(ngModel)]="lastDownload"
+                (ngModelChange)="lastDownload = $event"
+                name="lastDownload"
+                autocomplete="off"
+                [ngStyle]="{'width': '20px', 'margin-left': '10px'}"
+              />
+            </div>
+            <div>Número total de certificados: 304</div>
           </div>
           <div fxLayout="row">
             <form>

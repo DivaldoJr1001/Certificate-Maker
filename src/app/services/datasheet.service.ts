@@ -35,7 +35,7 @@ export class DatasheetService {
   currentCode: string = null;
   currentRepeat: number = null;
 
-  downloadPath: string = null;
+  certificadosPath: string = null;
 
   constructor() {
     this.data.sort((a, b) => (a.Nome.toLowerCase() > b.Nome.toLowerCase()) ? 1 : -1);

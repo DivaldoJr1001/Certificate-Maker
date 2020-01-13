@@ -65,11 +65,11 @@ var emailCounter = 0;
 // Código modificável
 
 // Email e senha da conta que vai enviar as mensagens
-const myEmail = "xxxxxxxxx";
-const myPassword = "xxxxxxxxxx";
+const myEmail = "";
+const myPassword = "";
 
 // Caminho completo até a pasta onde se encontram os certificados
-const certificatesPath = "C:/Users/Samsung/Downloads";
+const certificatesPath = "./src/assets/Certificados";
 
 // Arquivo com as informações a serem utilizadas nos emails
 const studentsList = JSON.parse(fs.readFileSync('./src/assets/Lista de Participantes (Teste).json'));

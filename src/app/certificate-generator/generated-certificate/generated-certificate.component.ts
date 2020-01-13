@@ -54,6 +54,8 @@ export class GeneratedCertificateComponent implements OnInit, AfterViewInit {
   getAuthorsString(): string {
     let authorsString: string = '';
 
+    this.authorsList.sort((a, b) => (a.Nome > b.Nome) ? 1 : -1);
+
     for (let i = 0; i < this.authorsList.length; i++) {
       authorsString += this.authorsList[i].Nome;
       if (i < this.authorsList.length - 1) {
@@ -106,7 +108,7 @@ export class GeneratedCertificateComponent implements OnInit, AfterViewInit {
         'slow'
       );
       pdf.save('Certificado ' + this.authorsList[0].Numero + '.pdf'); // PDF
-      setTimeout(window.close, 15);
+      setTimeout(window.close, 1000);
     });
   }
 }
