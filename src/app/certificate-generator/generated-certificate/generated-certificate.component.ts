@@ -5,11 +5,16 @@ import { DatasheetService } from 'src/app/services/datasheet.service';
 import { ActivatedRoute } from '@angular/router';
 
 export interface PersonObject {
+  Nome: string;
+  Email: string;
+  Trabalhos: WorkObject[];
+  Enviado: boolean;
+}
+
+export interface WorkObject {
   Numero: string;
   Titulo: string;
   Centro: string;
-  Nome: string;
-  Email: string;
 }
 
 @Component({
@@ -21,6 +26,8 @@ export class GeneratedCertificateComponent implements OnInit, AfterViewInit {
   code: string;
 
   authorsList: PersonObject[] = [];
+
+  work: WorkObject;
 
   wrongAdressError: boolean;
 
@@ -48,6 +55,8 @@ export class GeneratedCertificateComponent implements OnInit, AfterViewInit {
     }
 
     this.authorsList = this.dataCheck.findAuthorsList(this.code);
+
+    this.work = this.dataCheck.getProject(this.code);
 
   }
 
@@ -107,7 +116,7 @@ export class GeneratedCertificateComponent implements OnInit, AfterViewInit {
         null,
         'slow'
       );
-      pdf.save('Certificado ' + this.authorsList[0].Numero + '.pdf'); // PDF
+      pdf.save('Certificado ' + this.code + '.pdf'); // PDF
       setTimeout(window.close, 1000);
     });
   }

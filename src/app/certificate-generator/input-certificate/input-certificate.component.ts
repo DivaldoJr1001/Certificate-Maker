@@ -48,7 +48,7 @@ export class InputCertificateComponent implements OnInit {
     }
 
     if (!this.emptyError) {
-      this.notFoundError = !this.dataCheck.doesItExist(this.email);
+      this.notFoundError = !this.dataCheck.doesEmailExist(this.email);
     }
 
     if (!this.emptyError && !this.notFoundError) {
